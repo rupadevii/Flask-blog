@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Team</title>
+{%endblock%}
+
+{% block body %}
+<main>
+    <div class="team-container">
+        <h2>Our team</h2>
+        {% for member in members%}
+            <div class="card">
+                <h3> {{member.name}} </h3>
+                <p> {{member.role}} </p>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
+

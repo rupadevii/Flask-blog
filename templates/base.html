@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    {% block head %} {% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>My Site.</h1>
+            <div class="nav-right">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+                <div>
+                    <button>Get started</button>
+                    <button id="theme-toggle">🌞</button>
+                </div>
+            </div>
+            
+        </nav>
+    </header>
+    {% block body %} {% endblock %}
+    
+    <footer>
+        <h3>&copy; 2025 My Site</h3>
+        <p>Contact: me@gmail.com</p>
+    </footer>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+</body>
+</html>
