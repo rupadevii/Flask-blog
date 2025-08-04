@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request
+from blog_data import blog_posts
 
 app = Flask(__name__)
 
 @app.route("/")
-def index():
+def home():
     return render_template("index.html")
 
 @app.route("/about")
@@ -29,6 +30,20 @@ def contact():
             return render_template("contact.html", success=True)
         
     return render_template("contact.html", errors=errors)
+
+
+@app.route("/blog")
+def blog():
+    return render_template("blog.html", posts=blog_posts)
+
+@app.route("/blog/<slug>")
+def blog_post(slug):
+    post = next((p for p in blog_posts if p['slug'] == slug), None)
+
+    if post:
+        return render_template('blog_post.html', post=post)
+    else:
+        return "Post not found", 404
     
 @app.route("/team")
 def team():

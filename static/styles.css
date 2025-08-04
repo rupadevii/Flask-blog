@@ -115,7 +115,7 @@ nav button{
     align-items: center;
 }
 
-.dark-mode .card {
+.dark-mode .card , .dark-mode form{
   background: #1e1e1e;
   color: white;
 }
@@ -149,12 +149,11 @@ form button{
 input, textarea {
   width: 100%;
   padding: 8px;
-  margin-bottom: 10px;
 }
 
 form {
   max-width: 500px;
-  margin: 0 auto;
+  margin: 20px auto ;
   background: #f9f9f9;
   padding: 2rem;
   border-radius: 8px;
@@ -168,7 +167,7 @@ label {
   margin-bottom: 0.3rem;
 }
 
-input[type="text"],
+input[type="text"],input[type="email"],
 textarea {
   width: 100%;
   padding: 0.6rem;
@@ -176,6 +175,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
+  border-radius: 8px;
 }
 
 textarea {
@@ -214,4 +214,8 @@ form button:hover {
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
+}
+
+.blog{
+    padding : 30px;
 }
