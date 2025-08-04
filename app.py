@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -10,10 +10,26 @@ def index():
 def about():
     return render_template("about.html")
 
-@app.route("/contact")
+@app.route("/contact", methods = ['GET', 'POST'])
 def contact():
-    return render_template("contact.html")
+    errors = []
+    if request.method == 'POST':
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        message = request.form.get("message", "").strip()
 
+        if not name:
+            errors.append("Name is required.")
+        if not email or '@' not in email:
+            errors.append("Valid email is required.")
+        if not message:
+            errors.append("Message cannot be empty.")
+
+        if not errors:
+            return render_template("contact.html", success=True)
+        
+    return render_template("contact.html", errors=errors)
+    
 @app.route("/team")
 def team():
     members = [
