@@ -4,21 +4,17 @@
 {% block body %}
 <main>
 
-    {% if errors %}
-    <div class="error">
-        {% for error in errors %}
-        <ul>
-            <li>{{error}}</li>
-        </ul>
-        {% endfor %}
-    </div>
-    {% endif %}
 
-    {% if success %}
-    <div class="success">Thank you! Your message was sent.</div>
-    {% endif %}
+    {% with messages = get_flashed_messages(with_categories= true)%}
+        {% if messages %}
+            {% for category, message in messages%}
+                <div class="flash {{category}}">{{message}}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
-    <form method="POST" action="{{url_for('contact')}}">
+    
+    <form method="POST" action="{{url_for('main.contact')}}">
         <label>Name:</label>
         <input type="text" name="name" value="{{request.form.get("name", "")}}"/><br><br>
 
