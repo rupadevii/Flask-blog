@@ -1,5 +1,5 @@
 from app import create_app
-
+from app.models import User, Post
 app = create_app()
 
 if __name__ == "__main__":
