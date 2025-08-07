@@ -1,4 +1,7 @@
-from flask import render_template, request, flash, Blueprint
+from flask import render_template, request, flash, Blueprint, session, redirect, url_for
+from app.models import User
+from app import db
+# from app.main import main
 
 main = Blueprint("main", __name__)
 
@@ -46,6 +49,30 @@ def team():
        ]
     return render_template("team.html", members = members)
 
+@main.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        user = User.query.filter_by(username=username).first()
+
+        if user and user.password == password:
+            session["user_id"] = user.id
+            session["username"] = user.username
+            flash(f"Welcome back, {user.username}!", "success")
+            return redirect(url_for("main.home"))
+        else:
+            flash("Invalid username or password", "error")
+
+    return render_template("login.html")
+
+@main.route("/logout")
+def logout():
+    session.clear()
+    flash("You have been logged out.", "info")
+    return redirect(url_for('main.home'))
+    
 @main.app_errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

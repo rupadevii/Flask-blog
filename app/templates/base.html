@@ -15,6 +15,11 @@
                     <li><a href="{{url_for('main.home')}}">Home</a></li>
                     <li><a href="{{url_for('main.about')}}">About</a></li>
                     <li><a href="{{url_for('main.contact')}}">Contact</a></li>
+                    {% if session.get('user_id') %}
+                        <li><a href="{{url_for('main.logout')}}">Logout</a>
+                    {% else %}
+                    <li><a href="{{url_for('main.login')}}">Login</a></li>
+                    {% endif %}
                 </ul>
                 <div>
                     <button>Get started</button>
