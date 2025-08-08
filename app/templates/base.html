@@ -15,7 +15,7 @@
                     <li><a href="{{url_for('main.home')}}">Home</a></li>
                     <li><a href="{{url_for('main.about')}}">About</a></li>
                     <li><a href="{{url_for('main.contact')}}">Contact</a></li>
-                    {% if 'user_id' in session %}
+                    {% if current_user.is_authenticated %}
                         <li><a href="#">Dashboard</a></li>
                         <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
                     {% else %}

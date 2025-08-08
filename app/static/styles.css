@@ -219,3 +219,9 @@ form button:hover {
 .blog{
     padding : 30px;
 }
+
+.submit{
+  background-color: #007bff;
+  color: white;
+  margin-top: 10px;
+}

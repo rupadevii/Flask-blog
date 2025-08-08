@@ -1,7 +1,8 @@
 from flask import render_template, request, flash, Blueprint, session, redirect, url_for
 from app.models import User
 from app import db, bcrypt
-# from app.main import main
+from flask_login import login_user, logout_user, login_required
+from app.main.forms import LoginForm
 
 main = Blueprint("main", __name__)
 
@@ -69,27 +70,30 @@ def register():
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        username = request.form["username"]
-        password_input = request.form["password"]
+    # if request.method == "POST":
+    #     username = request.form["username"]
+    #     password_input = request.form["password"]
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
 
-        user = User.query.filter_by(username=username).first()
-
-        if user and bcrypt.check_password_hash(user.password, password_input):
-            session["user_id"] = user.id
-            session["username"] = user.username
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user)
+            # session["user_id"] = user.id
+            # session["username"] = user.username
             # flash(f"Welcome back, {user.username}!", "success")
             return redirect(url_for("main.home"))
         else:
             flash("Invalid username or password", "error")
             return redirect(url_for("main.login"))
 
-    return render_template("login.html")
+    return render_template("login.html", form=form)
 
 @main.route("/logout")
+@login_required
 def logout():
     # session.clear()
-    session.pop('user_id', None)
+    logout_user()
     # flash("You have been logged out.", "info")
     return redirect(url_for('main.home'))
 
