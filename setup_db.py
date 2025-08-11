@@ -13,6 +13,7 @@ user1 = User(username="rupa", email="rupa@example.com", password="securepass123"
 
 # Sample post
 post1 = Post(title="My First Blog Post", content="Hello world from Flask!", author="rupa")
+post2 = Post(title="My Blog...", content="What the hell", author="apur")
 
 # Add and commit to DB
 db.session.add(user1)

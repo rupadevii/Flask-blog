@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %} Dashboard {% endblock %}
+
+{% block body %}
+<main>
+    <div class="dashboard">
+        <h1>Your Dashboard</h1>
+
+        {% if posts %}
+            {% for post in posts %}
+                <div class="blog-post">
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.content }}</p>
+                    <small>{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <br>
+                    <a href="{{ url_for('blog.edit_post', post_id=post.id) }}">Edit</a>
+                    <a href="{{ url_for('blog.delete_post', post_id=post.id) }}">Delete</a>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>You have not posted anything yet.</p>
+        {% endif %}
+
+        <a href="{{ url_for('blog.new_post') }}">Add New Post</a>
+    </div>
+</main>
+{% endblock %}

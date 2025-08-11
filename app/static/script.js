@@ -40,4 +40,3 @@ setTimeout(function() {
     if (alert) alert.style.display = "none";
   }, 3000); // hides after 3 seconds
 
-
