@@ -73,4 +73,4 @@ def delete_post(post_id):
 def dashboard():
     posts = Post.query.filter_by(author=current_user.username).order_by(Post.date_posted.desc()).all()
     print("Posts found:", posts) 
-    return render_template('dashboard.html', posts=posts)
+    return render_template('dashboard.html', posts=posts, user=current_user)

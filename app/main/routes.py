@@ -22,20 +22,10 @@ def contact():
         email = request.form.get("email", "").strip()
         message = request.form.get("message", "").strip()
 
-        # if not name:
-        #     errors.append("Name is required.")
-        # if not email or '@' not in email:
-        #     errors.append("Valid email is required.")
-        # if not message:
-        #     errors.append("Message cannot be empty.")
-
         if not name or '@' not in email or not message:
             flash("Please fill out all fields.", "error")
         else:
             flash("Message sent successfully!", "success")
-
-        # if not errors:
-        #     return render_template("contact.html", success=True)
     
     return render_template("contact.html")
 
@@ -70,18 +60,12 @@ def register():
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
-    # if request.method == "POST":
-    #     username = request.form["username"]
-    #     password_input = request.form["password"]
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            # session["user_id"] = user.id
-            # session["username"] = user.username
-            # flash(f"Welcome back, {user.username}!", "success")
             return redirect(url_for("main.home"))
         else:
             flash("Invalid username or password", "error")
@@ -92,7 +76,6 @@ def login():
 @main.route("/logout")
 @login_required
 def logout():
-    # session.clear()
     logout_user()
     # flash("You have been logged out.", "info")
     return redirect(url_for('main.home'))
